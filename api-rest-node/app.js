@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 const app = express();
 
 // cargar archivos de rutas
+const user_routes = require('./routes/user');
 
 // middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,11 +18,6 @@ app.use(bodyParser.json());
 
 // reescribir rutas
 // rutas , metodo de prueba
-app.post('/prueba', (req, res) => {
-	return res.status(200).send({
-		message: 'hola mundo desde express'
-	});
-});
-
+app.use('/api/user', user_routes);
 // export modulo
 module.exports = app;

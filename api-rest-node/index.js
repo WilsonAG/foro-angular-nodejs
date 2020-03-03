@@ -4,7 +4,10 @@ var port = process.env.port || 3000;
 
 mongoose.Promise = global.Promise;
 mongoose
-	.connect('mongodb://localhost:27017/forum', { useNewUrlParse: true })
+	.connect('mongodb://localhost:27017/forum', {
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	})
 	.then(() => {
 		console.log('La conexion se ha realizado con exito');
 		// creo server
