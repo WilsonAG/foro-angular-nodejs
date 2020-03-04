@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
-var app = require('./app');
-var port = process.env.port || 3000;
+const mongoose = require('mongoose');
+const app = require('./app');
+const port = process.env.PORT || 3000;
 
 mongoose.Promise = global.Promise;
 mongoose

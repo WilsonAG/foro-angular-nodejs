@@ -1,7 +1,8 @@
 'use strict';
+const User = require('../models/User');
 const validator = require('validator');
-let User = require('../models/User');
 const bcrypt = require('bcrypt');
+const jwt = require('../services/Jwt');
 
 const controller = {
 	save: (req, res) => {
@@ -78,6 +79,55 @@ const controller = {
 					});
 				});
 			});
+		});
+	},
+
+	login: async (req, res) => {
+		// recoger parametros
+		let params = req.body;
+
+		// validar datos
+		let validate_email =
+			!validator.isEmpty(params.email) && validator.isEmail(params.email);
+		let validate_password = !validator.isEmail(params.password);
+
+		if (!validate_email || !validate_password) {
+			return res.status(401).send({
+				message: 'Credenciales no validas, por favor intentalo denuevo.'
+			});
+		}
+		// buscar usuarios en la bd
+		const user = await User.findOne({
+			email: params.email.toLowerCase()
+		});
+
+		if (!user) {
+			return res.status(404).send({
+				message: 'No se encuentra registrado.'
+			});
+		}
+		//si lo encuentra, comprobar password
+		const isCorrect = await bcrypt.compare(params.password, user.password);
+		if (!isCorrect) {
+			return res.status(401).send({
+				message: 'Credenciales no validas, por favor intentalo denuevo.'
+			});
+		}
+		//limpiar obj user
+		user.password = undefined;
+
+		// Generar token jwt
+		if (params.token) {
+			return res.status(200).send({
+				status: 'ok',
+				token: jwt.createToken(user)
+			});
+		}
+
+		// si coinciden devolver datos
+		return res.status(200).send({
+			status: 'ok',
+			user
 		});
 	}
 };
