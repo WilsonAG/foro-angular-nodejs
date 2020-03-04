@@ -129,6 +129,13 @@ const controller = {
 			status: 'ok',
 			user
 		});
+	},
+
+	update: (req, res) => {
+		// crear middleware para autenticacion(jwt)
+		return res.status(200).send({
+			message: 'metodo de actualizacion'
+		});
 	}
 };
 
