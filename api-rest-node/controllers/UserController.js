@@ -3,6 +3,8 @@ const User = require('../models/User');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
 const jwt = require('../services/Jwt');
+const fs = require('fs');
+const path = require('path');
 
 const controller = {
 	save: (req, res) => {
@@ -197,6 +199,64 @@ const controller = {
 			message: 'metodo de actualizacion',
 			user: updatedUser
 		});
+	},
+
+	uploadAvatar: async (req, res) => {
+		// Configurar modulo multiparty
+
+		// Recoger el archivo de la peticion
+		if (!req.files) {
+			return res.status(404).send({
+				status: 'error',
+				message: 'No se ha seleccionado ninguna imagen.'
+			});
+		}
+
+		// obtener name y extencion
+		let filePath = req.files.file0.path;
+		let fileSplit = filePath.split('/');
+		let fileName = fileSplit[2];
+		let fileExt = fileName.split('.')[1];
+
+		// Comprobar extension solo imagenes, si no es valido eliminar archivo
+		if (
+			fileExt != 'png' &&
+			fileExt != 'jpg' &&
+			fileExt != 'jpeg' &&
+			fileExt != 'gif'
+		) {
+			fs.unlink(filePath, () => {
+				return res.status(200).send({
+					status: 'error',
+					message: 'El formato del archivo no es valido'
+				});
+			});
+		} else {
+			// sacar id del usuario identificado
+			let userID = req.user.sub;
+
+			// Buscar y actualizar documento en bd
+			let updatedUser = await User.findOneAndUpdate(
+				{
+					_id: userID
+				},
+				{ image: fileName },
+				{ new: true }
+			).exec();
+
+			if (!updatedUser) {
+				return res.status(400).send({
+					status: 'error',
+					message: 'Se produjo un error al subir la imagen.'
+				});
+			}
+
+			return res.status(200).send({
+				status: 'ok',
+				message: 'avatar uploaded',
+				user: updatedUser
+			});
+		}
 	}
 };
 
