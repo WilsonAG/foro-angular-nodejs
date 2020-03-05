@@ -6,7 +6,8 @@ mongoose.Promise = global.Promise;
 mongoose
 	.connect('mongodb://localhost:27017/forum', {
 		useNewUrlParser: true,
-		useUnifiedTopology: true
+		useUnifiedTopology: true,
+		useFindAndModify: false
 	})
 	.then(() => {
 		console.log('La conexion se ha realizado con exito');

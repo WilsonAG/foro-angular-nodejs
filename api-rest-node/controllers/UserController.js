@@ -10,11 +10,18 @@ const controller = {
 		let params = req.body;
 
 		// validar datos
-		let validate_name = !validator.isEmpty(params.name);
-		let validate_lastname = !validator.isEmpty(params.lastname);
-		let validate_email =
-			!validator.isEmpty(params.email) && validator.isEmail(params.email);
-		let validate_password = !validator.isEmpty(params.password);
+		try {
+			let validate_name = !validator.isEmpty(params.name);
+			let validate_lastname = !validator.isEmpty(params.lastname);
+			let validate_email =
+				!validator.isEmpty(params.email) &&
+				validator.isEmail(params.email);
+			let validate_password = !validator.isEmpty(params.password);
+		} catch (error) {
+			return res.status(400).send({
+				message: 'Faltan datos'
+			});
+		}
 
 		if (
 			!(
@@ -87,9 +94,16 @@ const controller = {
 		let params = req.body;
 
 		// validar datos
-		let validate_email =
-			!validator.isEmpty(params.email) && validator.isEmail(params.email);
-		let validate_password = !validator.isEmail(params.password);
+		try {
+			let validate_email =
+				!validator.isEmpty(params.email) &&
+				validator.isEmail(params.email);
+			let validate_password = !validator.isEmail(params.password);
+		} catch (error) {
+			return res.status(400).send({
+				message: 'Faltan datos'
+			});
+		}
 
 		if (!validate_email || !validate_password) {
 			return res.status(401).send({
@@ -131,10 +145,57 @@ const controller = {
 		});
 	},
 
-	update: (req, res) => {
-		// crear middleware para autenticacion(jwt)
+	update: async (req, res) => {
+		// recoger datos de la peticion
+		let params = req.body;
+
+		// Validar datos
+		try {
+			let validate_name = !validator.isEmpty(params.name);
+			let validate_lastname = !validator.isEmpty(params.lastname);
+			let validate_email =
+				!validator.isEmpty(params.email) &&
+				validator.isEmail(params.email);
+		} catch (error) {
+			return res.status(400).send({
+				message: 'Faltan datos'
+			});
+		}
+
+		// eliminar propiedades innecesrias
+		delete params.password;
+
+		// comprobar email unico
+		if (req.user.email != params.email) {
+			const user2 = await User.findOne({
+				email: params.email.toLowerCase()
+			});
+
+			if (user2 && user2.email == params.email) {
+				return res.status(400).send({
+					message: 'No puede usar esta direccion de email.'
+				});
+			}
+		}
+		// buscar y actualizar documento
+		let userId = req.user.sub;
+
+		const updatedUser = await User.findOneAndUpdate(
+			{ _id: userId },
+			params,
+			{ new: true }
+		);
+
+		if (!updatedUser) {
+			return res.status(500).send({
+				message: 'Error al actualizar datos del usuario'
+			});
+		}
+		// devolver respuesta
+		updatedUser.password = undefined;
 		return res.status(200).send({
-			message: 'metodo de actualizacion'
+			message: 'metodo de actualizacion',
+			user: updatedUser
 		});
 	}
 };
