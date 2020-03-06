@@ -29,9 +29,11 @@ controller.save = async (req, res) => {
 		topic.content = params.content;
 		topic.code = params.code;
 		topic.lang = params.lang;
+		topic.user = req.user.sub;
 
 		// Guardar el topic
 		const storedTopic = await topic.save();
+		// Devolver respuesta
 		if (storedTopic) {
 			return res.status(201).send({
 				status: 'ok',
@@ -44,12 +46,39 @@ controller.save = async (req, res) => {
 			});
 		}
 	}
+};
 
-	// Devolver respuesta
+controller.getTopics = async (req, res) => {
+	// cargar libreria de paginacion (en el modelo)
+	// Recoger pagina actual
+	let page = parseInt(req.params.page) || 1;
 
-	return res.status(200).send({
-		message: 'Hola topic controller'
-	});
+	//indicar opciones de paginacion
+	let options = {
+		sort: {
+			date: -1
+		},
+		populate: 'user',
+		limit: 5,
+		page: page
+	};
+	// find paginado
+	const topics = await Topic.paginate({}, options);
+
+	// Devolver resultado (topics, total de topics, total de paginas)
+	if (!topics) {
+		return res.status(400).send({
+			status: 'error',
+			message: 'Error al obtener los temas.'
+		});
+	} else {
+		return res.status(200).send({
+			status: 'ok',
+			topics: topics.docs,
+			totalDocs: topics.totalDocs,
+			totalPages: topics.totalPages
+		});
+	}
 };
 
 module.exports = controller;
