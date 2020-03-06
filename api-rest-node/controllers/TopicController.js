@@ -81,4 +81,64 @@ controller.getTopics = async (req, res) => {
 	}
 };
 
+controller.getTopicsByUser = async (req, res) => {
+	// Conseguir id del usuario
+	let userID = req.params.userID;
+
+	// Find con una condicion de usuario
+	const topics = await Topic.find({
+		user: userID
+	})
+		.sort([['date', 'descending']])
+		.exec()
+		.catch(err => {
+			return res.status(500).send({
+				status: 'error',
+				message: 'Error en la peticion, el id no es valido'
+			});
+		});
+
+	if (!topics) {
+		return res.status(404).send({
+			status: 'error',
+			message: 'No hay temas para mostrar'
+		});
+	} else {
+		// Devolver resultado
+
+		return res.status(200).send({
+			status: 'ok',
+			topics
+		});
+	}
+};
+
+controller.getTopic = async (req, res) => {
+	// sacar id del topic de la url
+	let topicID = req.params.id;
+
+	// find topic por id
+	const topic = await Topic.findById(topicID)
+		.populate('user')
+		.exec()
+		.catch(err => {
+			return res.status(500).send({
+				status: 'error',
+				message: 'Peticion no valida, el id no es valido'
+			});
+		});
+
+	// devolver resultado
+	if (!topic) {
+		return res.status(404).send({
+			status: 'error',
+			message: 'No existe el tema.'
+		});
+	} else {
+		return res.status(200).send({
+			status: 'ok',
+			topic
+		});
+	}
+};
 module.exports = controller;
