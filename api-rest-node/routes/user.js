@@ -17,5 +17,8 @@ router.post(
 	[authMiddleware.auth, uploadMiddleware],
 	UserController.uploadAvatar
 );
+router.get('/avatar/:fileName', UserController.avatar);
+router.get('/', UserController.getUsers);
+router.get('/:id', UserController.getUser);
 
 module.exports = router;

@@ -257,6 +257,58 @@ const controller = {
 				user: updatedUser
 			});
 		}
+	},
+
+	avatar: (req, res) => {
+		let fileName = req.params.fileName;
+		let pathFile = './uploads/users/' + fileName;
+
+		fs.exists(pathFile, existsFile => {
+			if (existsFile) {
+				return res.sendFile(path.resolve(pathFile));
+			}
+
+			return res.status(404).send({
+				message: 'No se pudo encontrar el avatar.'
+			});
+		});
+	},
+
+	getUsers: async (req, res) => {
+		const users = await User.find().exec();
+		if (users) {
+			return res.status(200).send({
+				status: 'ok',
+				users
+			});
+		}
+		return res.status(404).send({
+			status: 'error',
+			message: 'no hay usuarios para mostrar'
+		});
+	},
+	getUser: async (req, res) => {
+		try {
+			let userID = req.params.id;
+			const user = await User.findById(userID).exec();
+
+			if (user) {
+				return res.status(200).send({
+					status: 'ok',
+					user
+				});
+			}
+
+			return res.status(404).send({
+				status: 'error',
+				message: 'No se encontro el usuario.'
+			});
+		} catch (error) {
+			return res.status(404).send({
+				status: 'error',
+				message: 'No se encontro el usuario.'
+			});
+		}
 	}
 };
 
