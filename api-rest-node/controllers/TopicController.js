@@ -141,4 +141,98 @@ controller.getTopic = async (req, res) => {
 		});
 	}
 };
+
+controller.update = async (req, res) => {
+	// recoger id de la url
+	let topicID = req.params.id;
+
+	// recoger datos de la peticion
+	let params = req.body;
+
+	// valdiar datos
+	try {
+		var v_title = !validator.isEmpty(params.title);
+		var v_content = !validator.isEmpty(params.content);
+		var v_lang = !validator.isEmpty(params.lang);
+	} catch (error) {
+		return res.status(200).send({
+			status: 'error',
+			message: 'Faltan datos por enviar.'
+		});
+	}
+
+	// crear json con satos a modificar
+	if (!(v_title && v_content && v_lang)) {
+		return res.status(400).send({
+			message: 'Error al actualizar usuario, no se puede validar'
+		});
+	}
+	let updateData = {
+		title: params.title,
+		content: params.content,
+		code: params.code,
+		lang: params.lang
+	};
+
+	// find and update del topic por id e id de user
+	try {
+		const updatedUser = await Topic.findOneAndUpdate(
+			{
+				_id: topicID,
+				user: req.user.sub
+			},
+			updateData,
+			{ new: true }
+		).exec();
+
+		// devolver respuesta
+		if (!updatedUser) {
+			return res.status(404).send({
+				status: 'error',
+				message: 'no se encuentra el tema'
+			});
+		} else {
+			return res.status(200).send({
+				status: 'ok',
+				user: updatedUser
+			});
+		}
+	} catch (error) {
+		return res.status(500).send({
+			status: 'error',
+			message: 'Error al actualizar topic, el id no es valido'
+		});
+	}
+};
+
+controller.delete = async (req, res) => {
+	// sacar id del topic de la url
+	let topicID = req.params.id;
+
+	try {
+		// find and delete por topic id y por user id
+		let removerdTopic = await Topic.findOneAndDelete({
+			_id: topicID,
+			user: req.user.sub
+		}).exec();
+
+		// devolver respuesta
+		if (!removerdTopic) {
+			return res.status(404).send({
+				status: 'error',
+				message: 'no se pudo encontrar topic para eliminar'
+			});
+		} else {
+			return res.status(200).send({
+				status: 'ok',
+				topic: removerdTopic
+			});
+		}
+	} catch (error) {
+		return res.status(500).send({
+			status: 'error',
+			message: 'No se pudo eliminar topic, el id no es valido'
+		});
+	}
+};
 module.exports = controller;
