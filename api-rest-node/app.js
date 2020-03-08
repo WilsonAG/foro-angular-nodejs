@@ -10,6 +10,7 @@ const app = express();
 // cargar archivos de rutas
 const user_routes = require('./routes/user');
 const topic_routes = require('./routes/topic');
+const comment_routes = require('./routes/comments');
 
 // middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,5 +22,7 @@ app.use(bodyParser.json());
 // rutas , metodo de prueba
 app.use('/api', user_routes);
 app.use('/api', topic_routes);
+app.use('/api', comment_routes);
+
 // export modulo
 module.exports = app;
