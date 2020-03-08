@@ -235,4 +235,41 @@ controller.delete = async (req, res) => {
 		});
 	}
 };
+
+controller.search = async (req, res) => {
+	// obtener string a buscar
+	const term = req.params.term;
+
+	// find or
+	try {
+		const topics = await Topic.find({
+			$or: [
+				{ title: { $regex: term, $options: 'i' } },
+				{ content: { $regex: term, $options: 'i' } },
+				{ code: { $regex: term, $options: 'i' } },
+				{ lang: { $regex: term, $options: 'i' } }
+			]
+		})
+			.sort([['date', 'descending']])
+			.exec();
+
+		//devolver resultado
+		if (!topics) {
+			return res.status(404).send({
+				status: 'error',
+				message: 'No se encontro ningun tema relacionado'
+			});
+		} else {
+			return res.status(200).send({
+				status: 'ok',
+				topics
+			});
+		}
+	} catch (error) {
+		return res.status(500).send({
+			status: 'error',
+			message: 'error en la peticion'
+		});
+	}
+};
 module.exports = controller;

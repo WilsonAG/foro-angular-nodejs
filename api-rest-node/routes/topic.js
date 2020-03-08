@@ -13,4 +13,5 @@ router.get('/user-topics/:userID', TopicController.getTopicsByUser);
 router.get('/topic/:id', TopicController.getTopic);
 router.put('/topic/:id', authMiddleware.auth, TopicController.update);
 router.delete('/topic/:id', authMiddleware.auth, TopicController.delete);
+router.get('/search/:term', TopicController.search);
 module.exports = router;
