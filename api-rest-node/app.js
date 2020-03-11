@@ -1,8 +1,9 @@
 'use strict';
 
 // requires
-var express = require('express');
-var bodyParser = require('body-parser');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 // ejecutar express
 const app = express();
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 	res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
 	next();
 });
+//app.use(cors());
 
 // reescribir rutas
 // rutas , metodo de prueba

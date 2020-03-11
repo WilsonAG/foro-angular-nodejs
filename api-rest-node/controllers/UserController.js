@@ -13,12 +13,12 @@ const controller = {
 
 		// validar datos
 		try {
-			let validate_name = !validator.isEmpty(params.name);
-			let validate_lastname = !validator.isEmpty(params.lastname);
-			let validate_email =
+			var validate_name = !validator.isEmpty(params.name);
+			var validate_lastname = !validator.isEmpty(params.lastname);
+			var validate_email =
 				!validator.isEmpty(params.email) &&
 				validator.isEmail(params.email);
-			let validate_password = !validator.isEmpty(params.password);
+			var validate_password = !validator.isEmpty(params.password);
 		} catch (error) {
 			return res.status(400).send({
 				message: 'Faltan datos'
