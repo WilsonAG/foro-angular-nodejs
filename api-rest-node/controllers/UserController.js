@@ -97,10 +97,10 @@ const controller = {
 
 		// validar datos
 		try {
-			let validate_email =
+			var validate_email =
 				!validator.isEmpty(params.email) &&
 				validator.isEmail(params.email);
-			let validate_password = !validator.isEmail(params.password);
+			var validate_password = !validator.isEmail(params.password);
 		} catch (error) {
 			return res.status(400).send({
 				message: 'Faltan datos'
@@ -118,8 +118,8 @@ const controller = {
 		});
 
 		if (!user) {
-			return res.status(404).send({
-				message: 'No se encuentra registrado.'
+			return res.status(401).send({
+				message: 'Credenciales no validas, por favor intentalo denuevo.'
 			});
 		}
 		//si lo encuentra, comprobar password

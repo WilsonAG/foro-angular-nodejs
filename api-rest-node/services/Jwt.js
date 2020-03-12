@@ -17,7 +17,7 @@ exports.createToken = user => {
 		iat: moment().unix(),
 		exp: moment().add(7, 'days').unix
 	};
-	console.log(key);
+	//console.log(key);
 
 	return jwt.encode(payload, key);
 };

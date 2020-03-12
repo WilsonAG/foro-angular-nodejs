@@ -29,4 +29,37 @@ export class UserService {
         // Hacer Peticion ajax
         return this._http.post(this.uri + '/register', params, { headers });
     }
+
+    signUp(user: User, token = null): Observable<any> {
+        // comprobar si llega token
+        if (token != null) {
+            user.token = token;
+        }
+
+        const params = JSON.stringify(user);
+        const headers = new HttpHeaders().set(
+            'Content-Type',
+            'application/json'
+        );
+
+        return this._http.post(this.uri + '/login', params, { headers });
+    }
+
+    getIdentity(): User {
+        const identity = JSON.parse(localStorage.getItem('identity'));
+        if (identity) {
+            return identity;
+        } else {
+            return null;
+        }
+    }
+
+    getToken(): string {
+        const token = localStorage.getItem('token');
+        if (token) {
+            return token;
+        } else {
+            return null;
+        }
+    }
 }

@@ -7,6 +7,8 @@ export class User {
     public password: string;
     public image: string;
     public role: string;
+    public token: any;
+
     constructor() {
         this._id = '';
         this.name = '';
