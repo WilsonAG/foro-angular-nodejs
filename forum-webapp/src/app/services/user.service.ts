@@ -62,4 +62,12 @@ export class UserService {
             return null;
         }
     }
+
+    update(user: User): Observable<any> {
+        const params = JSON.stringify(user);
+        const headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', this.getToken());
+        return this._http.put(this.uri + '/user', params, { headers });
+    }
 }

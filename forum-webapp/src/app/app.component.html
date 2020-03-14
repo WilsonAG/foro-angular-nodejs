@@ -62,6 +62,15 @@
                         Iniciar Sesion
                     </a>
                 </li>
+                <li class="nav item" *ngIf="identity">
+                    <div class="avatar-mask">
+                        <img
+                            src="{{ uri + '/avatar/' + identity.image }}"
+                            alt="Imagen de perfil"
+                            class="avatar-img"
+                        />
+                    </div>
+                </li>
                 <li class="nav-item dropdown" *ngIf="identity">
                     <a
                         class="nav-link dropdown-toggle"
@@ -77,7 +86,9 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Panel de Usuario</a>
                         <a class="dropdown-item" href="#">Mi perfil</a>
-                        <a class="dropdown-item" href="#">Ajustes</a>
+                        <a class="dropdown-item" [routerLink]="['/ajustes']">
+                            Ajustes
+                        </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item btn" (click)="logout()">
                             Cerrar sesion

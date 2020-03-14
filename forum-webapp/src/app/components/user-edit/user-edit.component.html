@@ -1,18 +1,23 @@
 <div class="col-lg-12 text-center">
     <h1>{{ titlePage }}</h1>
     <hr />
-    <div class=" alert alert-success col-md-5 mt-3" *ngIf="status == 'ok'">
-        El registro se ha completado correctamente,
-        <a [routerLink]="['/login']">Inicia sesion aqui.</a>
+    <div
+        class=" alert alert-success col-md-5 mt-3 mx-auto"
+        *ngIf="status == 'ok'"
+    >
+        Datos actualizados correctamente.
     </div>
-    <div class=" alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+    <div
+        class=" alert alert-danger col-md-5 mt-3 mx-auto"
+        *ngIf="status == 'error'"
+    >
         Algo salio mal, intentalo denuevo.
     </div>
 
     <form
         class="col-md-5 mx-auto text-left"
-        #registerForm="ngForm"
-        (ngSubmit)="onSubmit(registerForm)"
+        #userEditForm="ngForm"
+        (ngSubmit)="onSubmit(userEditForm)"
     >
         <div class="form-group">
             <label for="name">Nombre: </label>
@@ -75,29 +80,20 @@
         </div>
 
         <div class="form-group">
-            <label for="password">Contraseña: </label>
-            <input
-                type="password"
-                name="password"
-                id="password"
-                #password="ngModel"
-                [(ngModel)]="user.password"
-                required
-                class="form-control"
-            />
-            <small
-                *ngIf="password.invalid && password.touched"
-                class="invalid-feedback d-block"
+            <label for="avatar">Imagen de perfil.</label>
+            <angular-file-uploader
+                id="avatar"
+                [config]="afuConfig"
+                (ApiResponse)="avatarUpload($event)"
             >
-                La contraseña no es valida
-            </small>
+            </angular-file-uploader>
         </div>
 
         <input
             type="submit"
-            value="Registrarse"
+            value="Actualizar datos"
             class="btn btn-success d-block mx-auto"
-            [disabled]="registerForm.invalid"
+            [disabled]="userEditForm.invalid"
         />
     </form>
 </div>
