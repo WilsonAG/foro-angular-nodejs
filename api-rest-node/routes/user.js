@@ -11,7 +11,7 @@ const uploadMiddleware = multiPart({ uploadDir: './uploads/users' });
 
 router.post('/register', UserController.save);
 router.post('/login', UserController.login);
-router.put('/update', authMiddleware.auth, UserController.update);
+router.put('/user', authMiddleware.auth, UserController.update);
 router.post(
 	'/upload-avatar',
 	[authMiddleware.auth, uploadMiddleware],

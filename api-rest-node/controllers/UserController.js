@@ -196,7 +196,7 @@ const controller = {
 		// devolver respuesta
 		updatedUser.password = undefined;
 		return res.status(200).send({
-			message: 'metodo de actualizacion',
+			status: 'ok',
 			user: updatedUser
 		});
 	},

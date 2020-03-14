@@ -15,6 +15,7 @@ exports.auth = (req, res, next) => {
 
 	try {
 		//decodificar token
+
 		var payload = jwt.decode(token, jwtKey);
 		if (payload.exp <= moment().unix()) {
 			return res.status(400).send({
