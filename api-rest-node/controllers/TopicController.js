@@ -176,7 +176,7 @@ controller.update = async (req, res) => {
 
 	// find and update del topic por id e id de user
 	try {
-		const updatedUser = await Topic.findOneAndUpdate(
+		const updatedTopic = await Topic.findOneAndUpdate(
 			{
 				_id: topicID,
 				user: req.user.sub
@@ -186,7 +186,7 @@ controller.update = async (req, res) => {
 		).exec();
 
 		// devolver respuesta
-		if (!updatedUser) {
+		if (!updatedTopic) {
 			return res.status(404).send({
 				status: 'error',
 				message: 'no se encuentra el tema'
@@ -194,7 +194,7 @@ controller.update = async (req, res) => {
 		} else {
 			return res.status(200).send({
 				status: 'ok',
-				user: updatedUser
+				topic: updatedTopic
 			});
 		}
 	} catch (error) {
