@@ -14,8 +14,7 @@ const appRoutes: Routes = [
     { path: 'inicio', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'registro', component: RegisterComponent },
-    { path: 'ajustes', component: UserEditComponent },
-    { path: '**', component: LoginComponent }
+    { path: 'ajustes', component: UserEditComponent }
 ];
 
 // EXPORTAR

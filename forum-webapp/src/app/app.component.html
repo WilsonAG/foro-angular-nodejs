@@ -84,8 +84,12 @@
                         {{ identity.name + ' ' + identity.lastname }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Panel de Usuario</a>
-                        <a class="dropdown-item" href="#">Mi perfil</a>
+                        <a class="dropdown-item" [routerLink]="['/panel']">
+                            Panel de Usuario
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            Mi perfil
+                        </a>
                         <a class="dropdown-item" [routerLink]="['/ajustes']">
                             Ajustes
                         </a>
