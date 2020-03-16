@@ -55,4 +55,8 @@ export class TopicService {
     getTopics(page: number = 1): Observable<any> {
         return this._http.get(this.uri + '/topics/' + page);
     }
+
+    getTopic(id: string): Observable<any> {
+        return this._http.get(this.uri + '/topic/' + id);
+    }
 }

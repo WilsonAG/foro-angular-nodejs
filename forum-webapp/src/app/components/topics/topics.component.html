@@ -4,7 +4,7 @@
     <ul class="list-group list-topics">
         <li class="list-group-item" *ngFor="let topic of topics">
             <h4>
-                <a [routerLink]="['/inicio']">
+                <a [routerLink]="['/tema', topic._id]">
                     {{ topic.title }}
                 </a>
             </h4>
@@ -16,7 +16,7 @@
             </span>
 
             <a
-                [routerLink]="['/inicio']"
+                [routerLink]="['/tema', topic._id]"
                 class="btn btn-sm btn-success float-right mx-auto d-block"
             >
                 Leer
@@ -27,34 +27,39 @@
     <div class="clearfix"></div>
 
     <!-- Paginacion -->
+    <div class="d-flex justify-content-center">
+        <ul class="pagination mt-4">
+            <li class="page-item" [ngClass]="{ 'disabled': prevPage === -1 }">
+                <a
+                    class="page-link"
+                    [routerLink]="['/temas', prevPage]"
+                    aria-label="Previous"
+                >
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
 
-    <ul class="pagination mt-4">
-        <li class="page-item" [ngClass]="{ 'disabled': prevPage === -1 }">
-            <a
-                class="page-link"
-                [routerLink]="['/temas', prevPage]"
-                aria-label="Previous"
+            <li
+                class="page-item"
+                *ngFor="let page of numberPages"
+                routerLinkActive="active"
             >
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-            </a>
-        </li>
+                <a class="page-link" [routerLink]="['/temas', page]">
+                    {{ page }}
+                </a>
+            </li>
 
-        <li class="page-item" *ngFor="let page of numberPages">
-            <a class="page-link" [routerLink]="['/temas', page]">
-                {{ page }}
-            </a>
-        </li>
-
-        <li class="page-item" [ngClass]="{ 'disabled': nextPage === -1 }">
-            <a
-                class="page-link"
-                [routerLink]="['/temas', nextPage]"
-                aria-label="Next"
-            >
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-            </a>
-        </li>
-    </ul>
+            <li class="page-item" [ngClass]="{ 'disabled': nextPage === -1 }">
+                <a
+                    class="page-link"
+                    [routerLink]="['/temas', nextPage]"
+                    aria-label="Next"
+                >
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>

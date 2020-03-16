@@ -1,0 +1,25 @@
+<div class="col-lg-12">
+    <div class="topic-data col-lg-9 float-left">
+        <h2 class="text-uppercase">
+            {{ topic.title }}
+        </h2>
+        <span class="badge badge-dark ">
+            {{ topic.user.name + ' ' + topic.user.lastname }}
+        </span>
+        <span class="badge badge-light ml-2">
+            {{ topic.date | amLocale: 'es' | amTimeAgo }}
+        </span>
+        <span class="badge badge-warning ml-2" *ngIf="topic.lang">
+            {{ topic.lang }}
+        </span>
+
+        <p id="topic-content" class="mt-2">
+            {{ topic.content }}
+        </p>
+
+        <p id="topic-code" class="mt-2" *ngIf="topic.code && topic.lang">
+            <ngx-highlight-js lang="{{ topic.lang }}" code="{{ topic.code }}">
+            </ngx-highlight-js>
+        </p>
+    </div>
+</div>

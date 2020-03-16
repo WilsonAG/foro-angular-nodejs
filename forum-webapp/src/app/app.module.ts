@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { MomentModule } from 'angular2-moment';
+import { NgxHighlightJsModule } from '@nowzoo/ngx-highlight-js';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -15,6 +16,7 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 import { PanelModule } from './panel/panel.module';
 import { TopicsComponent } from './components/topics/topics.component';
+import { TopicDetailComponent } from './components/topic-detail/topic-detail.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +25,8 @@ import { TopicsComponent } from './components/topics/topics.component';
         LoginComponent,
         HomeComponent,
         UserEditComponent,
-        TopicsComponent
+        TopicsComponent,
+        TopicDetailComponent
     ],
     imports: [
         BrowserModule,
@@ -32,7 +35,8 @@ import { TopicsComponent } from './components/topics/topics.component';
         FormsModule,
         HttpClientModule,
         AngularFileUploaderModule,
-        MomentModule
+        MomentModule,
+        NgxHighlightJsModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]
