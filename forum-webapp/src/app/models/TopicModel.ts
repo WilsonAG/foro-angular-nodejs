@@ -1,3 +1,5 @@
+import { User } from './UserModel';
+
 export class Topic {
     public _id: string;
     public title: string;

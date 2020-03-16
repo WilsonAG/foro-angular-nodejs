@@ -1,0 +1,60 @@
+<div class="col-lg-12 mt-3">
+    <h2>{{ titlePage }}</h2>
+    <hr />
+    <ul class="list-group list-topics">
+        <li class="list-group-item" *ngFor="let topic of topics">
+            <h4>
+                <a [routerLink]="['/inicio']">
+                    {{ topic.title }}
+                </a>
+            </h4>
+            <span class="badge badge-dark ">
+                {{ topic.user.name + ' ' + topic.user.lastname }}
+            </span>
+            <span class="badge badge-light ml-2">
+                {{ topic.date | amLocale: 'es' | amTimeAgo }}
+            </span>
+
+            <a
+                [routerLink]="['/inicio']"
+                class="btn btn-sm btn-success float-right mx-auto d-block"
+            >
+                Leer
+            </a>
+        </li>
+    </ul>
+
+    <div class="clearfix"></div>
+
+    <!-- Paginacion -->
+
+    <ul class="pagination mt-4">
+        <li class="page-item" [ngClass]="{ 'disabled': prevPage === -1 }">
+            <a
+                class="page-link"
+                [routerLink]="['/temas', prevPage]"
+                aria-label="Previous"
+            >
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+
+        <li class="page-item" *ngFor="let page of numberPages">
+            <a class="page-link" [routerLink]="['/temas', page]">
+                {{ page }}
+            </a>
+        </li>
+
+        <li class="page-item" [ngClass]="{ 'disabled': nextPage === -1 }">
+            <a
+                class="page-link"
+                [routerLink]="['/temas', nextPage]"
+                aria-label="Next"
+            >
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+</div>

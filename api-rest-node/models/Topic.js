@@ -2,6 +2,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const paginate = require('mongoose-paginate-v2');
+const moment = require('moment-timezone');
+const dateEC = moment.tz(Date.now(), 'America/Guayaquil');
 
 // modelo de comment
 const CommentSchema = Schema({
@@ -25,7 +27,7 @@ const TopicSchema = Schema({
 	lang: String,
 	date: {
 		type: Date,
-		default: Date.now()
+		default: dateEC
 	},
 	user: {
 		type: Schema.ObjectId,

@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app.routing';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 import { PanelModule } from './panel/panel.module';
+import { TopicsComponent } from './components/topics/topics.component';
 
 @NgModule({
     declarations: [
@@ -21,15 +22,16 @@ import { PanelModule } from './panel/panel.module';
         RegisterComponent,
         LoginComponent,
         HomeComponent,
-        UserEditComponent
+        UserEditComponent,
+        TopicsComponent
     ],
     imports: [
         BrowserModule,
+        PanelModule,
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
         AngularFileUploaderModule,
-        PanelModule,
         MomentModule
     ],
     providers: [],

@@ -51,4 +51,8 @@ export class TopicService {
             .set('Authorization', token);
         return this._http.delete(this.uri + '/topic/' + id, { headers });
     }
+
+    getTopics(page: number = 1): Observable<any> {
+        return this._http.get(this.uri + '/topics/' + page);
+    }
 }

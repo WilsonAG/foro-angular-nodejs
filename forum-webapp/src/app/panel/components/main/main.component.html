@@ -8,14 +8,15 @@
         aria-orientation="vertical"
     >
         <a
-            class="nav-link active"
+            class="nav-link "
             id="v-pills-home-tab"
             data-toggle="pill"
             href="#v-pills-home"
             role="tab"
             aria-controls="v-pills-home"
-            aria-selected="true"
+            aria-selected="false"
             [routerLink]="['listado']"
+            routerLinkActive="active"
         >
             Listado
         </a>
@@ -28,6 +29,7 @@
             aria-controls="v-pills-profile"
             aria-selected="false"
             [routerLink]="['crear']"
+            routerLinkActive="active"
         >
             Crear tema
         </a>
@@ -40,6 +42,7 @@
             aria-controls="v-pills-messages"
             aria-selected="false"
             [routerLink]="['/ajustes']"
+            routerLinkActive="active"
         >
             Ajustes
         </a>

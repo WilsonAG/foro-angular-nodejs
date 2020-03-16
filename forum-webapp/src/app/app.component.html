@@ -22,11 +22,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Temas</a>
+                    <a class="nav-link" [routerLink]="['/temas']">Temas</a>
                 </li>
 
                 <li class="nav-item" *ngIf="identity">
-                    <a class="nav-link" href="#">Crear temas</a>
+                    <a class="nav-link" [routerLink]="['/panel/crear']">
+                        Crear temas
+                    </a>
                 </li>
 
                 <li class="nav-item">
@@ -84,7 +86,10 @@
                         {{ identity.name + ' ' + identity.lastname }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" [routerLink]="['/panel']">
+                        <a
+                            class="dropdown-item"
+                            [routerLink]="['/panel/listado']"
+                        >
                             Panel de Usuario
                         </a>
                         <a class="dropdown-item" href="#">
