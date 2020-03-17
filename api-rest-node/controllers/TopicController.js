@@ -120,6 +120,7 @@ controller.getTopic = async (req, res) => {
 	// find topic por id
 	const topic = await Topic.findById(topicID)
 		.populate('user')
+		.populate('comments.user')
 		.exec()
 		.catch(err => {
 			return res.status(500).send({

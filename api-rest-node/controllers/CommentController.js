@@ -60,10 +60,29 @@ controller.add = async (req, res) => {
 			message: 'error al guardar el comentario'
 		});
 	} else {
-		return res.status(200).send({
-			status: 'ok',
-			topic: newTopic
-		});
+		const topic = await Topic.findById(newTopic._id)
+			.populate('user')
+			.populate('comments.user')
+			.exec()
+			.catch(err => {
+				return res.status(500).send({
+					status: 'error',
+					message: 'Peticion no valida, el id no es valido'
+				});
+			});
+
+		// devolver resultado
+		if (!topic) {
+			return res.status(404).send({
+				status: 'error',
+				message: 'No existe el tema.'
+			});
+		} else {
+			return res.status(200).send({
+				status: 'ok',
+				topic
+			});
+		}
 	}
 };
 
@@ -144,10 +163,30 @@ controller.delete = async (req, res) => {
 
 			// devolver resultado
 
-			return res.status(200).send({
-				status: 'ok',
-				topic: newTopic
-			});
+			if (!newTopic) {
+				return res.status(500).send({
+					status: 'error',
+					message: 'error al guardar el comentario'
+				});
+			} else {
+				const topic = await Topic.findById(newTopic._id)
+					.populate('user')
+					.populate('comments.user')
+					.exec();
+
+				// devolver resultado
+				if (!topic) {
+					return res.status(404).send({
+						status: 'error',
+						message: 'No existe el tema.'
+					});
+				} else {
+					return res.status(200).send({
+						status: 'ok',
+						topic
+					});
+				}
+			}
 		}
 	} catch (error) {
 		return res.status(500).send({

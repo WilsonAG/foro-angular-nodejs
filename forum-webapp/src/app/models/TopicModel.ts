@@ -1,4 +1,5 @@
 import { User } from './UserModel';
+import { Comment } from './CommentModel';
 
 export class Topic {
     public _id: string;
@@ -7,7 +8,7 @@ export class Topic {
     public code: string;
     public lang: string;
     public date: string;
-    public comments: any;
+    public comments: Array<Comment>;
 
     constructor(public user: any) {
         this._id = '';
