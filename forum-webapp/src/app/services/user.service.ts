@@ -70,4 +70,12 @@ export class UserService {
             .set('Authorization', this.getToken());
         return this._http.put(this.uri + '/user', params, { headers });
     }
+
+    getUsers(): Observable<any> {
+        return this._http.get(this.uri + '/users');
+    }
+
+    getUser(id: string): Observable<any> {
+        return this._http.get(this.uri + '/users/' + id);
+    }
 }

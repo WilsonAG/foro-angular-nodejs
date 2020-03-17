@@ -10,3 +10,8 @@
     height: 100%;
     width: 100%;
 }
+
+.list-users .avatar-mask {
+    height: 64px;
+    width: 64px;
+}

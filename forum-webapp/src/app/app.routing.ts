@@ -11,6 +11,7 @@ import { TopicsComponent } from './components/topics/topics.component';
 import { TopicDetailComponent } from './components/topic-detail/topic-detail.component';
 import { UserGuard } from './services/user.guard';
 import { NoIdentityGuard } from './services/noIdentity.guard';
+import { UsersComponent } from './components/users/users.component';
 
 // RUTAS
 const appRoutes: Routes = [
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
     { path: 'temas', component: TopicsComponent },
     { path: 'temas/:page', component: TopicsComponent },
     { path: 'tema/:id', component: TopicDetailComponent },
+    { path: 'usuarios', component: UsersComponent },
     { path: '**', component: HomeComponent }
 ];
 

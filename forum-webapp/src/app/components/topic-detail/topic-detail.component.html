@@ -35,11 +35,7 @@
         <div class=" alert alert-danger mt-3" *ngIf="status == 'error'">
             Algo salio mal, intentalo denuevo.
         </div>
-        <form
-            *ngIf="identity"
-            #formComment="ngForm"
-            (submit)="onSubmit(formComment)"
-        >
+        <form #formComment="ngForm" (submit)="onSubmit(formComment)">
             <div class="form-group">
                 <label for="content">Pon tu comentario: </label>
                 <textarea
@@ -51,6 +47,7 @@
                     #content="ngModel"
                     [(ngModel)]="comment.content"
                     required
+                    [disabled]="!identity"
                 ></textarea>
                 <small
                     *ngIf="content.invalid && content.touched"
@@ -62,7 +59,7 @@
             <input
                 type="submit"
                 value="Comentar"
-                [disabled]="formComment.invalid"
+                [disabled]="!identity || formComment.invalid"
                 class="btn btn-success"
             />
         </form>
@@ -94,7 +91,7 @@
 
                 <button
                     class="btn btn-sm btn-danger float-right"
-                    *ngIf="identity._id == comment.user._id"
+                    *ngIf="identity && identity._id == comment.user._id"
                     (click)="deleteComment(comment._id)"
                 >
                     Eliminar

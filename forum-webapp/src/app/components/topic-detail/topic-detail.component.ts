@@ -31,7 +31,8 @@ export class TopicDetailComponent implements OnInit {
     ) {
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
-        this.comment = new Comment(this.identity._id);
+        this.comment = new Comment();
+        this.comment.user = '';
         this.uri = CONFIG.uri;
     }
 

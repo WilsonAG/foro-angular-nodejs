@@ -17,6 +17,7 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { PanelModule } from './panel/panel.module';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TopicDetailComponent } from './components/topic-detail/topic-detail.component';
+import { UsersComponent } from './components/users/users.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { TopicDetailComponent } from './components/topic-detail/topic-detail.com
         HomeComponent,
         UserEditComponent,
         TopicsComponent,
-        TopicDetailComponent
+        TopicDetailComponent,
+        UsersComponent
     ],
     imports: [
         BrowserModule,
