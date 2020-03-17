@@ -136,6 +136,7 @@ controller.getTopic = async (req, res) => {
 			message: 'No existe el tema.'
 		});
 	} else {
+		topic.comments = topic.comments.reverse();
 		return res.status(200).send({
 			status: 'ok',
 			topic

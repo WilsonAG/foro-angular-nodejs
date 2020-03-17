@@ -78,6 +78,7 @@ controller.add = async (req, res) => {
 				message: 'No existe el tema.'
 			});
 		} else {
+			topic.comments = topic.comments.reverse();
 			return res.status(200).send({
 				status: 'ok',
 				topic
@@ -181,6 +182,7 @@ controller.delete = async (req, res) => {
 						message: 'No existe el tema.'
 					});
 				} else {
+					topic.comments = topic.comments.reverse();
 					return res.status(200).send({
 						status: 'ok',
 						topic
