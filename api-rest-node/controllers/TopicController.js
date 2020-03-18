@@ -254,6 +254,7 @@ controller.search = async (req, res) => {
 			]
 		})
 			.sort([['date', 'descending']])
+			.populate('user')
 			.exec();
 
 		//devolver resultado

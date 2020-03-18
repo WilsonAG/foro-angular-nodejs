@@ -21,6 +21,7 @@ import { UsersComponent } from './components/users/users.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { NgProgressHttpModule } from 'ngx-progressbar/http';
         TopicsComponent,
         TopicDetailComponent,
         UsersComponent,
-        ProfileComponent
+        ProfileComponent,
+        SearchComponent
     ],
     imports: [
         BrowserModule,

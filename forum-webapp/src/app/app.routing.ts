@@ -13,6 +13,7 @@ import { UserGuard } from './services/user.guard';
 import { NoIdentityGuard } from './services/noIdentity.guard';
 import { UsersComponent } from './components/users/users.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { SearchComponent } from './components/search/search.component';
 
 // RUTAS
 const appRoutes: Routes = [
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
     { path: 'tema/:id', component: TopicDetailComponent },
     { path: 'usuarios', component: UsersComponent },
     { path: 'perfil/:id', component: ProfileComponent },
+    { path: 'buscar/:topic', component: SearchComponent },
     { path: '**', component: HomeComponent }
 ];
 

@@ -59,4 +59,8 @@ export class TopicService {
     getTopic(id: string): Observable<any> {
         return this._http.get(this.uri + '/topic/' + id);
     }
+
+    search(topic: string): Observable<any> {
+        return this._http.get(this.uri + '/search/' + topic);
+    }
 }
