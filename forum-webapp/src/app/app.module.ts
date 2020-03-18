@@ -18,6 +18,9 @@ import { PanelModule } from './panel/panel.module';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TopicDetailComponent } from './components/topic-detail/topic-detail.component';
 import { UsersComponent } from './components/users/users.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { NgProgressModule } from 'ngx-progressbar';
+import { NgProgressHttpModule } from 'ngx-progressbar/http';
 
 @NgModule({
     declarations: [
@@ -28,7 +31,8 @@ import { UsersComponent } from './components/users/users.component';
         UserEditComponent,
         TopicsComponent,
         TopicDetailComponent,
-        UsersComponent
+        UsersComponent,
+        ProfileComponent
     ],
     imports: [
         BrowserModule,
@@ -36,6 +40,8 @@ import { UsersComponent } from './components/users/users.component';
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
+        NgProgressModule,
+        NgProgressHttpModule,
         AngularFileUploaderModule,
         MomentModule,
         NgxHighlightJsModule.forRoot()

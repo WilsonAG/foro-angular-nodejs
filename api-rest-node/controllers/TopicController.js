@@ -90,6 +90,7 @@ controller.getTopicsByUser = async (req, res) => {
 		user: userID
 	})
 		.sort([['date', 'descending']])
+		.populate('user')
 		.exec()
 		.catch(err => {
 			return res.status(500).send({

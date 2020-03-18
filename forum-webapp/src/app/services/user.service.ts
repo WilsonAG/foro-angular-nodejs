@@ -76,6 +76,6 @@ export class UserService {
     }
 
     getUser(id: string): Observable<any> {
-        return this._http.get(this.uri + '/users/' + id);
+        return this._http.get(this.uri + '/user/' + id);
     }
 }
